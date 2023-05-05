@@ -1,8 +1,7 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-    reactStrictMode: true,
-    basePath: '/jordan-icf'
+// next.config.js
+module.exports = {
+    images: {
+      domains: ['user-images.githubusercontent.com'],
+    },
   }
-  
-  module.exports = nextConfig
   

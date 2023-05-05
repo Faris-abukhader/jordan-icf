@@ -57,7 +57,7 @@ export const ThemeSwitcher = () => {
           document.documentElement.classList.add('dark');
           localStorage.setItem('theme', 'dark');
         }}
-        className="flex items-center h-full pr-2 dark:bg-primary rounded-3xl flex justify-center align-center p-2 w-24 h-10 transition"
+        className="flex items-center h-full pr-2 dark:bg-primary rounded-3xl justify-center align-center p-2 w-24 h-10 transition"
       >
         {moonIcon}
       </button>
