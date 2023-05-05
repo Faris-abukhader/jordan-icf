@@ -16,6 +16,7 @@ import Header from '../../components/Header';
 import Layout, { GradientBackground } from '../../components/Layout';
 import SEO from '../../components/SEO';
 import Image from 'next/image';
+import { CarouselCard } from '../../components/ImageSlider';
 // Custom components/renderers to pass to MDX.
 // Since the MDX files aren't loaded by webpack, they have no knowledge of how
 // to handle import statements. Instead, you must include components in scope
@@ -37,7 +38,7 @@ export default function PostPage({
 }) {
 
   return (
-    <Layout>
+    <Layout animation={'fadeInUp'}>
       <SEO
         title={`${frontMatter.title} - ${globalData.name}`}
         description={frontMatter.description}
@@ -54,7 +55,8 @@ export default function PostPage({
           )} */}
         </header>
         <main>
-          {frontMatter.images && <div className='w-full py-8 rounded-md'><Image loading='lazy' className=' object-cover rounded-md' src={frontMatter.images[0]} height={800} width={1200} layout='responsive' alt='image'/></div>}
+          <CarouselCard/>
+          {/* {frontMatter.images && <div className='w-full py-8 rounded-md'><Image loading='lazy' className=' object-cover rounded-md' src={frontMatter.images[0]} height={800} width={1200} layout='responsive' alt='image'/></div>} */}
           <article className="prose dark:prose-dark">
             <MDXRemote {...source} components={components} />
           </article>

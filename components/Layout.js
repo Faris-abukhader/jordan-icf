@@ -14,7 +14,7 @@ export function GradientBackground({ variant, className }) {
   return <div className={classes} />;
 }
 
-export default function Layout({ children }) {
+export default function Layout({ children,animation }) {
   const setAppTheme = () => {
     const darkMode = localStorage.getItem('theme') === 'dark';
     const lightMode = localStorage.getItem('theme') === 'light';
@@ -49,12 +49,16 @@ export default function Layout({ children }) {
     handleSystemThemeChange();
   }, []);
 
+  useEffect(()=>{
+    console.log(animation)
+  },[animation])
+
   return (
     <div className="relative pb-24 overflow-hidden">
     <div className="py-16- absolute top-0 left-0 scale-50 max-w-sm flex flex-col items-center">
             <ThemeSwitcher/>
             </div>
-      <div className="flex flex-col items-center max-w-2xl w-full mx-auto">
+      <div className={`flex flex-col items-center max-w-2xl w-full mx-auto animate__animated animate__${animation}`}>
         {children}
       </div>
     </div>

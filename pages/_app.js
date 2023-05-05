@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import '../styles/globals.css';
 import 'prismjs/themes/prism-tomorrow.css';
-
+import 'animate.css';
 function MyApp({ Component, pageProps }) {
   useEffect(()=>{
     document.documentElement.classList.add('dark');
