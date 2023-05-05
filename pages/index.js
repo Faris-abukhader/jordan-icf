@@ -8,11 +8,9 @@ import ArrowIcon from '../components/ArrowIcon';
 import { getGlobalData } from '../utils/global-data';
 import SEO from '../components/SEO';
 import Image from 'next/image';
+import ImageLoader from '../components/ImageLoader';
 export default function Index({ posts, globalData }) {
 
-  const ImageLoader = (post)=>{
-    return post.data.images[0]
-  }
   return (
     <Layout>
       <SEO title={globalData.name} description={globalData.blogTitle} />
@@ -33,7 +31,7 @@ export default function Index({ posts, globalData }) {
               >
                 <a className="py-6 lg:py-10 px-6 lg:px-16 block focus:outline-none focus:ring-4">
                  <div className='flex  items-center gap-3'>
-                 {post.data.images && <Image src={post.data.images[0]}  loader={()=>ImageLoader(post)} className='rounded-md' width={60} height={60} alt='image'/>}
+                 {post.data.images && <ImageLoader src={post.data.images[0]}/>}
                   <h2 className="text-2xl md:text-3xl">{post.data.title}</h2>
                  </div>
                   {post.data.description && (

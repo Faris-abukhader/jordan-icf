@@ -36,8 +36,6 @@ export default function PostPage({
   globalData,
 }) {
 
-  console.log(`/images/${frontMatter.images[0]}`)
-
   return (
     <Layout>
       <SEO
@@ -56,7 +54,7 @@ export default function PostPage({
           )} */}
         </header>
         <main>
-          {frontMatter.images && <div className='w-full py-8 rounded-md'><Image className=' object-cover rounded-md' src={frontMatter.images[0]} height={800} width={1200} layout='responsive' alt='image'/></div>}
+          {frontMatter.images && <div className='w-full py-8 rounded-md'><Image loading='lazy' className=' object-cover rounded-md' src={frontMatter.images[0]} height={800} width={1200} layout='responsive' alt='image'/></div>}
           <article className="prose dark:prose-dark">
             <MDXRemote {...source} components={components} />
           </article>
