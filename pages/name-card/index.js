@@ -11,7 +11,7 @@ export default function Id() {
   //'http://localhost:3000/name-card/download?token='
 
   const createCard = ()=>{
-    const token = sign({name:name,id:uid(16)},'not_really_important_secret')
+    const token = sign({name:name,id:uid(16)},'1234')
     setValue(url+token)
     setShow(true)
     console.log('url'+token)
