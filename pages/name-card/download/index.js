@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { toJpeg } from 'html-to-image';
+import { toBlob } from 'html-to-image';
 import { useRouter } from 'next/router';
 import { verify } from 'jsonwebtoken';
+import { saveAs } from 'file-saver';
+
 export default function Download() {
     const ref = useRef(null)
     const { query } = useRouter()
@@ -12,12 +14,10 @@ export default function Download() {
 
         const queryParams = new URLSearchParams(window.location.search)
         const token = queryParams.get("token")
-        console.log(token) //pizza
 
         verify(token, '1234', function (err, decoded) {
 
             if (!err) {
-                console.log(decoded)
                 setName(decoded.name)
                 setId(decoded.id)
             }
@@ -34,21 +34,29 @@ export default function Download() {
         if (ref.current === null) return
 
 
-        toJpeg(ref.current, { cacheBust: true, })
-            .then((dataUrl) => {
-                const link = document.createElement('a')
-                link.download = `${id}_${new Date().getMilliseconds()}.jpeg`
-                link.href = dataUrl
-                link.click()
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    }, [ref])
+        // toJpeg(ref.current, { cacheBust: true, })
+        //     .then((dataUrl) => {
+        //         const link = document.createElement('a')
+        //         link.download = `${id}_${new Date().getMilliseconds()}.jpeg`
+        //         link.href = dataUrl
+        //         link.click()
+        //     })
+        //     .catch((err) => {
+        //         console.log(err)
+        //     })
 
-    useEffect(()=>{
-      console.log(name)
-    },[name])
+
+        toBlob(ref.current)
+            .then(function (blob) {
+                if (window.saveAs) {
+                    window.saveAs(blob, `${id}_${new Date().getMilliseconds()}.jpeg`);
+                } else {
+                    saveAs(blob, `${id}_${new Date().getMilliseconds()}.jpeg`);
+                }
+            });
+
+
+    }, [ref])
 
     return (
         <div className='w-full relative font-arabic h-screen flex items-center justify-center'>
