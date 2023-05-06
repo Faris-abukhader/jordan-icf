@@ -8,7 +8,10 @@ module.exports = {
     extend:{
       scale: {
         '-100': '-1',
-     }
+     },
+     fontFamily: {
+      arabic: 'arabic',
+    },
     }
   },
   darkMode: 'class', // or 'media' or 'class'
