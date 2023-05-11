@@ -2,6 +2,7 @@ import { useState } from 'react'
 import QRCode from "react-qr-code";
 import { sign } from 'jsonwebtoken';
 import { uid } from 'uid';
+import Image from 'next/image';
 export default function Id() {
   const [name, setName] = useState('')
   const [show,setShow] = useState(false)
@@ -11,7 +12,7 @@ export default function Id() {
   //'http://localhost:3000/name-card/download?token='
 
   const createCard = ()=>{
-    const token = sign({name:name,id:uid(16)},'1234')
+    const token = sign({exp: Math.floor(Date.now() / 1000) + (60 * 60),name:name,id:uid(16)},'PXi5d+qZ+MHggf6L2N8GOAeH+eAdrGz5FfZxx0fxCo8=')
     setValue(url+token)
     setShow(true)
     console.log('url'+token)

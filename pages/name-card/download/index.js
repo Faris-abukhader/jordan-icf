@@ -1,22 +1,44 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState,createRef } from 'react'
 import { toBlob } from 'html-to-image';
 import { useRouter } from 'next/router';
 import { verify } from 'jsonwebtoken';
 import { saveAs } from 'file-saver';
+import { useScreenshot } from 'use-react-screenshot'
 
 export default function Download() {
-    const ref = useRef(null)
-    const { query } = useRouter()
+    // const ref = useRef(null)
+    const { query,isReady } = useRouter()
     const [name, setName] = useState('name')
     const [id, setId] = useState('')
+    const ref = createRef(null)
+    const [image, takeScreenshot] = useScreenshot()
+    const getImage = () => {
+
+        const link = document.createElement('a')
+        link.download = `${id}_${new Date().getMilliseconds()}.jpeg`
+        link.href = image
+        link.click()
+
+        takeScreenshot(ref.current)
+    }
+
+  
+
 
     const decodeToken = () => {
 
         const queryParams = new URLSearchParams(window.location.search)
         const token = queryParams.get("token")
 
-        verify(token, '1234', function (err, decoded) {
+        console.log(token)
 
+        const decoded = verify(token,'PXi5d+qZ+MHggf6L2N8GOAeH+eAdrGz5FfZxx0fxCo8=');
+
+        console.log(decoded)
+
+        verify(token, 'PXi5d+qZ+MHggf6L2N8GOAeH+eAdrGz5FfZxx0fxCo8=', function (err, decoded) {
+
+            console.log(decoded)
             if (!err) {
                 setName(decoded.name)
                 setId(decoded.id)
@@ -26,12 +48,19 @@ export default function Download() {
     }
 
     useEffect(() => {
-        decodeToken()
-    }, [query])
+        if(isReady){
+            decodeToken()
+        }
+    }, [isReady])
 
     const saveImage = useCallback(() => {
 
         if (ref.current === null) return
+
+
+        getImage()
+
+        
 
 
         // toJpeg(ref.current, { cacheBust: true, })
@@ -46,14 +75,14 @@ export default function Download() {
         //     })
 
 
-        toBlob(ref.current)
-            .then(function (blob) {
-                if (window.saveAs) {
-                    window.saveAs(blob, `${id}_${new Date().getMilliseconds()}.jpeg`);
-                } else {
-                    saveAs(blob, `${id}_${new Date().getMilliseconds()}.jpeg`);
-                }
-            });
+        // toBlob(ref.current)
+        //     .then(function (blob) {
+        //         if (window.saveAs) {
+        //             window.saveAs(blob, `${id}_${new Date().getMilliseconds()}.jpeg`);
+        //         } else {
+        //             saveAs(blob, `${id}_${new Date().getMilliseconds()}.jpeg`);
+        //         }
+        //     });
 
 
     }, [ref])
