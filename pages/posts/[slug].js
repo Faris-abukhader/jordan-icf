@@ -36,7 +36,6 @@ export default function PostPage({
   nextPost,
   globalData,
 }) {
-
   return (
     <Layout animation={'fadeInUp'}>
       <SEO
@@ -50,12 +49,9 @@ export default function PostPage({
           <h1 className="text-3xl md:text-5xl dark:text-white text-center mb-12">
             {frontMatter.title}
           </h1>
-          {/* {frontMatter.description && (
-            <p className="text-xl mb-4">{frontMatter.description}</p>
-          )} */}
         </header>
         <main>
-          <CarouselCard/>
+          <CarouselCard images={source.scope.images}/>
           {/* {frontMatter.images && <div className='w-full py-8 rounded-md'><Image loading='lazy' className=' object-cover rounded-md' src={frontMatter.images[0]} height={800} width={1200} layout='responsive' alt='image'/></div>} */}
           <article className="prose dark:prose-dark">
             <MDXRemote {...source} components={components} />
