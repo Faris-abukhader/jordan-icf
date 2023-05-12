@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import QRCode from "react-qr-code";
 import { sign } from 'jsonwebtoken';
 import { uid } from 'uid';
@@ -12,14 +12,26 @@ export default function Id() {
   //'http://localhost:3000/name-card/download?token='
 
   const createCard = ()=>{
-    const token = sign({exp: Math.floor(Date.now() / 1000) + (60 * 60),name:name,id:uid(16)},'PXi5d+qZ+MHggf6L2N8GOAeH+eAdrGz5FfZxx0fxCo8=')
+
+    const token = sign({
+        exp: Math.floor(Date.now() / 1000) + (60 * 60),
+        name:name,id:uid(16)
+      },
+      process.env.JWT_SECRET)
+
     setValue(url+token)
     setShow(true)
-    console.log('url'+token)
+    console.log(url+token)
   }
+
+  useEffect(()=>{
+    if(show){
+      setName('')
+    }
+  },[show])
   return (
     <div className='flex items-center justify-center w-full min-h-screen'>
-     <div className='w-full sm:w-1/2'>
+     <div className='w-full'>
       {!show &&<div className='w-full flex justify-center gap-3 p-10 sm:p-20'>
       <input value={name} onChange={(e)=>setName(e.target.value)} className={"flex h-10 w-full  sm:max-w-2xl rounded-md border border-input bg-transparent px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ring-black"} />
       <button onClick={createCard} className='bg-black text-white hover:bg-primary/90 h-10 py-2 px-4 rounded-md'>confirm</button>
