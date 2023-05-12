@@ -24,7 +24,7 @@ export default function Download() {
       const token = queryParams.get('token');
   
       console.log(token);
-      verify(token, process.env.JWT_SECRET, function (err, decoded) {
+      verify(token, 'PXi5d+qZ+MHggf6L2N8GOAeH+eAdrGz5FfZxx0fxCo8=', function (err, decoded) {
         console.log(decoded);
         console.log(err);
         if (!err) {

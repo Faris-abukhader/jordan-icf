@@ -17,7 +17,7 @@ export default function Id() {
         exp: Math.floor(Date.now() / 1000) + (60 * 60),
         name:name,id:uid(16)
       },
-      process.env.JWT_SECRET)
+      'PXi5d+qZ+MHggf6L2N8GOAeH+eAdrGz5FfZxx0fxCo8=')
 
     setValue(url+token)
     setShow(true)
