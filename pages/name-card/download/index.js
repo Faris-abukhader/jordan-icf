@@ -48,7 +48,7 @@ export default function Download() {
             autoplay
             loop
             className="absolute left-1/2 -translate-x-1/2 top-1/3"
-            src="/lottieFiles/loading-cat.json"
+            src="https://lottiefiles.com/116545-loading-cat"
             style={{ height: '300px', width: '300px' }}
           />
         ) : (
